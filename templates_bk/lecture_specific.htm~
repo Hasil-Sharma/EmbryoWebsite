@@ -1,0 +1,20 @@
+{% extends "standard.htm" %}
+
+{% block title %} {{current_lecture.topic|striptags}}{% endblock %}
+
+{% block content %}
+    <div class="current">Lecture</div>
+     <p>{{current_lecture.presenter}}</p>
+     <img src = "{{current_lecture.photo}}">
+     <p>{% for discipline in current_lecture.discipline.all %} {{ discipline }} {% endfor %}</p>
+     <p>{{current_lecture.moreifo}}</p>
+     <p>{{current_lecture.date}}</p>
+     <p>{{current_lecture.campus|safe}}</p>
+     <p>Venue: {{current_lecture.venue}}</p>
+     {% if presenter_set.credentials %}
+     <p>Credentials:<br />{{presenter_set.credentials}}</p>
+     {% endif %}
+     {% if presenter_set.profile %}
+     <p>Profile:<br/>{{presenter_set.profile}}</p>
+     {% endif %}
+{% endblock %}

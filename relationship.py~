@@ -1,0 +1,7 @@
+from database.models import *
+all_lectures = Lecture.objects.all()
+for lecture in all_lectures:
+	discipline = lecture.discipline
+	discipline = discipline.split('/')
+	disc_id = Discipline.objects
+	relation = Lecture_Discipline(lecture_id = lecture.id,discipline_id = )

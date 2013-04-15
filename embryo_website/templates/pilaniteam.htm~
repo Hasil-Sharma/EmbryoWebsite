@@ -1,0 +1,11 @@
+{% extends "standard.htm" %}
+
+{% block title %} Pilani Team{% endblock %}
+
+{% block content %}
+
+<div class="current">Pilani Team</div>
+	<h3>Pilani Team headings here</h3>
+		<p>
+Pilani Team content comes here.</p>
+{% endblock %}

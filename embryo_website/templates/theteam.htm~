@@ -1,0 +1,33 @@
+{% extends "standard.htm" %}
+
+{% block title %} The Team{% endblock %}
+
+{% block content %}
+
+<div class="current">The Team</div>
+	<h3>Executive Team (USA)</h3>
+		<p>
+		Shashikant Khandelwal, Mayur Shah, Shilpa Gupta, Gurpreet Singh, Madhur Khandelwal, Adarsh Sreekumar<br />
+		</p>
+	<h3>Executive Team (India)</h3>
+		<p>
+		Ayusman Sarangi, Ashutosh Sharma, Mohit Gupta<br />
+		</p>
+	<h3>Advisory Board</h3>
+		<p>	
+		Chandra Bhople, Jayan Ramankutty, Prem Jain, Vijay Pathak<br />
+</p>
+	<h3>BITS Pilani Team</h3>
+		<p>
+		Kireeti Mara, Hemant Singh, Niranjan Godbole, Mayank Gupta, Shreya Inamdar, Ankita Sarda, Chetan Chopra, Akhilesh Anandh, Ashwini Pokle
+Click <a href="pilaniteam">here</a> to see the complete team.<br />
+		</p>
+    <h3>BITS Goa Team</h3>
+		<p>
+Saby John, Sarang Dhongdi, Siddarth Agrawal, Abhilash Dighe<br />
+		</p>
+    <h3> Special Thanks</h3>
+		<p>
+Nanda Kishore, Milap Shah.<br />
+</p>
+{% endblock %}

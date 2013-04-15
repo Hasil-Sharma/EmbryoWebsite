@@ -1,0 +1,19 @@
+{% extends "standard.htm" %}
+
+{% block title %} Gallery{% endblock %}
+
+{% block content %}
+
+    <div class="current">Gallery</div>
+    <p>Ihas</p>
+    <div id="galleria">
+    <p>This</p>
+    {% for path in all_images %}
+     <img src="gallery images/{{path}}" alt="Not Found" title="tool tip" width="" height="" />
+    {% endfor %}
+    </div>
+    <script>
+    Galleria.loadTheme('js/galleria.classic.min.js');
+    Galleria.run('#galleria');
+    </script>
+{% endblock %}

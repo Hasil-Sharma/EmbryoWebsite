@@ -1,0 +1,11 @@
+{% extends "standard.htm" %}
+
+{% block title %} Newsletter{% endblock %}
+
+{% block content %}
+
+<div class="current">Newsletter</div>
+		{% for newsletter in newsletters %}
+		<a href = "{{newsletter.newsletter}}">{{newsletter.name}}</a>
+		{% endfor %}
+{% endblock %}

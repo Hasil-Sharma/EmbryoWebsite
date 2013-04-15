@@ -1,0 +1,36 @@
+{% extends "standard.htm" %}
+
+{% block title %} About{% endblock %}
+
+{% block content %}
+    <div class="current">About</div>
+	<h3>What is Embryo and Embryo 2.0?</a></h3>
+		<p>
+		Embryo is a forum for on-line, live and interactive lectures, run by students and faculties of BITS-Pilani. It was conceived and initiated by a group of 6 BITS Pilani Alumni in the Silicon Valley in 2006 with an aim to transform classroom education.
+<br/>
+Since February, 2006, more than 200 lectures have been successfully conducted in areas as wide ranging as Entrepreneurship, Black Holes, Solar Cells, Science of Smell, Naxalism, Rain water harvesting,Storage Networks, PSOCs, Process Control.
+<br/>
+In August 2010, we have launched Embryo2.0 where we are conducting a series of lectures,where the lecturer works closely with the course faculty and the lecture content is subject to evaluative components. Thus making the knowledge of alumni an even more integral part of the BITS curriculum.
+		</p>
+    <h3>Vision</a></h3>
+		<p>
+			Enrich the learning experience at BITS Pilani.
+		</p>
+    <h3>Mission</a></h3>
+		<p>
+		Make the academic and industry experience of BITS alumni accessible to on-campus students through lectures,
+        <br/> collaborative research projects, and exposure to current research trends around the world.
+		</p>
+    <h3>Why Embryo?</a></h3>
+		<p>
+		Although there is no alternative to 'in person' classroom teaching, any University in the world is limited by its on-campus human resources and available expertise. Often, a lecture or two in the right area by the right person can change a course of one's career. Embryo proposes to free education from the barriers of distance, time and human resources. Leveraging the web-based technologies, Embryo bridges the knowledge seekers (students), and the potential speakers. Such a powerful concept truly realizes the dream of borderless classrooms and bottomless learning resources.
+		</p>
+	<h3>Available Infrastructure</a></h3>
+		<p>
+		Embryo uses the campus wide network called 'Neuron' at BITS Pilani to connect Embryo lecturers with BITS Pilani campuses over the internet. We are currently in the process of installing state of the art telepresence solutions across all campuses thus making the experience even richer.
+		</p>
+	<h3>About<a href="http://www.bits-pilani.ac.in/" style="font-size:14px"> BITS Pilani</a></h3>
+    <p>Birla Institute of Technology and Science (BITS), Pilani is a Leading University in India offering degrees in Engineering, Management, Pharmacy, Sciences, Engineering Technology, Information Systems, General Studies, Finance, etc presently at Pilani, Dubai, Goa campuses and in the near future at Hyderabad campus. BITS Pilani also offers an array of work integrated learning programmes for HRD of a vast spectrum of Indian corporates.</p>
+	<h3>About <a href="http://www.bitsaa.org/" style="font-size:14px">BITSAA</a></h3>
+		<p>BITSAA International Inc. is a not-for-profit organization. The primary purpose of BITSAA International is to engage in charitable and educational activities by raising funds for setting up endowments, creating scholarships, rewarding teaching and research and generally promoting the development of resources at Birla Institute of Technology & Science at Pilani. BITSAA International also aims to strengthen the ties, friendship and communications amongst former students, current students, faculty and friends of the Institute. BITSAA International provides a number of channels for people to stay connected with each other and the Birla Institute of Technology & Science.</p>
+{% endblock %}

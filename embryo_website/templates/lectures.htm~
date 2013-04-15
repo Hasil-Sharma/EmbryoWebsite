@@ -1,0 +1,47 @@
+{% extends "standard.htm" %}
+
+{% block title %} Lectures{% endblock %}
+
+{% block content %}
+    <div class="current">Lectures</div>
+    <form action = "/search_result/" method = "get">
+    	<p>Search
+    	{% for bar in search_bar %}
+    		{{bar}}
+    	{% endfor %}
+    <input type='submit' value = 'search'></p>
+    </form>
+	<p>
+	Sort by Discipline
+	<select name = "">
+	{% for discipline in all_discipline %}
+		 <option value ="/discipline_id ={{discipline.id}}=">
+		 {{ discipline.stream }}
+		 </option>
+	{% endfor %}
+	</select>
+	</p>
+    <p style="position:relative; padding-left:650px;">
+    <a href="/lectures_pg={{i|add:'-5'}}">Previous</a>
+    <a href="/lectures_pg={{i|add:'5'}}">Next</a>
+        </p>
+	<div class="scroll" style="overflow=auto; height-max:600px;">
+    <table>
+    <colgroup><col width="368">
+ <col width="170">
+ <col width="112">
+</colgroup>
+    {% for lecture in all_lectures %}
+    <tr>
+    	{% autoescape off %}<td><p><a href="/lecturedetail_id={{lecture.id}}">{{ lecture.topic }}</a></p>{% endautoescape %}
+        <p>{{lecture.discipline.all|join:","}}
+    	{{ lecture.campus|safe }}-{{ lecture.venue }}, {{ lecture.date }}
+    	</p></td>
+		<td><p><b>{{ lecture.presenter }}</b></p></td>
+		{% if lecture.photo %}
+		<td><img src="{{ lecture.photo }}"></td>
+		{% endif %}
+    </tr>
+    {% endfor %}
+</table></div>
+{% endblock %}

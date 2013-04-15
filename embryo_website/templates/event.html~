@@ -1,0 +1,6 @@
+{% extends "standard.htm" %}
+
+{% block title %} Event{% endblock %}
+{% block content %}
+	{{event.description}}
+{% endblock %}

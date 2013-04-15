@@ -1,0 +1,21 @@
+{% extends "standard.htm" %}
+
+{% block title %} Register{% endblock %}
+
+{% block content %}
+
+<div class="current">Register</div>
+	<p>Register here.</p>
+	<p>Dear Guest,</p>
+	<p>Here is the Embryo Registration Form. We request you to kindly enter some basic information about yourself.The information entered by you would be purely used for Project Embryo activities and treated as confidential.</p>
+	<p>With best regards,</p>
+	<p>Team Embryo.</p>
+	<p>{{ success }}</p>
+	{% if not success %}
+		<form action="/register" method="post">
+		{{ register_form.as_p }}
+		<input type="submit" name="submit" />
+		</form>
+	{% endif %}
+	
+{% endblock %}

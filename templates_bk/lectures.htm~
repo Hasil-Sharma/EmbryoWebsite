@@ -1,0 +1,37 @@
+{% extends "standard.htm" %}
+
+{% block title %} Lectures{% endblock %}
+
+{% block content %}
+    <div class="current">Lectures</div>
+    <form action = "/search_result/" method = "get">
+    	{{search_bar}}
+    <input type='submit' value = 'search'>
+    </form>
+    <form action = "/lectures" method = "get">
+    	{{drop_down_menu}}
+    <input type = 'submit' value ='search' >
+    </form>
+    <p style="position:relative; padding-left:650px;">
+    <a href="#">Next</a>
+        </p>
+	<div class="scroll" style="overflow=auto; height-max:600px;">
+    <table>
+    <colgroup><col width="368">
+ <col width="170">
+ <col width="112">
+</colgroup>
+    {% for lecture in all_lectures %}
+    <tr>
+    	{% autoescape off %}<td><p><a href="/lecturedetail_id={{lecture.id}}">{{ lecture.topic }}</a></p>{% endautoescape %}
+        <p>{{lecture.discipline.all|join:","}}
+    	{{ lecture.campus|safe }}-{{ lecture.venue }}, {{ lecture.date }}
+    	</p></td>
+		<td><p><b>{{ lecture.presenter }}</b></p></td>
+		{% if lecture.photo %}
+		<td><img src="{{ lecture.photo }}"></td>
+		{% endif %}
+    </tr>
+    {% endfor %}
+</table></div>
+{% endblock %}

@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>BITS Embryo:{% block title %}{% endblock %}</title>
+
+<link rel="shortcut icon" href="{{MEDIA_URL}}images/favicon.ico"  />
+<link rel="stylesheet" type="text/css" media="screen" href="{{MEDIA_URL}}css/base.css" />
+<script type="text/javascript" src="{{MEDIA_URL}}jquery/easy_rotator.min.js"></script>
+<script src="{{MEDIA_URL}}js/jquery.js"></script>
+<script src="{{MEDIA_URL}}js/galleria-1.2.9.min.js"></script>
+<script defer src="{{MEDIA_URL}}js/jquery.flexslider-min.js"></script>
+<script type="text/javascript">
+    $(window).load(function() {
+  $('.flexslider').flexslider({
+    animation: "slide"
+  });
+});
+</script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-38369262-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<link rel="stylesheet" href="{{MEDIA_URL}}css/flexslider.css" type="text/css" media="screen" />
+</head>
+<body>
+<div class="header">
+        <div class="headercont">
+        <div class="logo"></div>
+        <div class="menu">
+            <ul>
+                <li><a href="/"><span>Home</span></a></li>
+                <li><a href="/lectures_pg={{i}}"><span>Lectures</span></a></li>
+                <li><a href="/contribute"><span>Contribute</span></a></li>
+                <li><a href="/gallery"><span>Gallery</span></a></li>
+                <li><a href="/newsletters"><span>Newsletters</span></a></li>
+                <li><a href="/about"><span>About us</span></a></li>
+                <li><a href="/theteam"><span>The Team</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="bstrip"></div>
+    <div class="bar"></div>
+</div>
+<div class="content">
+<div class="flexslider" id="banner">
+<ul class="slides">
+{% autoescape off %}
+  {% for lectures in upcoming_lectures %}
+	<li class="lecture">
+	<img src="{{ lectures.photo }}" />
+	<div>
+		<h2>Upcoming Lecture</h2>
+		<p>by<br />
+			<a href="/lecturedetail_id={{ lectures.id }}">{{ lectures.presenter }}</a>
+			<br/>{{ lectures.date }}<br/>Campus: {{ lectures.campus }}
+		</p>
+	</div></li>
+  {% endfor %}
+{% endautoescape %}
+{% for event in upcoming_events %}
+<li class="event">
+<a href = "/event_id={{ event.id }}" ><img src="/{{ event.image }}" /></a>
+</li>
+{% endfor %}
+</ul>
+</div>
+    <div class="text">
+{% autoescape off%}
+{% block content %}
+{% endblock %}
+{% endautoescape %}
+    </div>
+	<div class="flexslider" id="side">
+        <div><h2>Recent Lectures</h2></div>
+        <ul class="slides">
+        {% autoescape off %}
+        {% for lecture in recent_lectures %}
+        <li><img src="{{lecture.photo}}"/><div><p>by<br /><a href="/lecturedetail_id={{lecture.id}}">{{lecture.presenter}}</a><br />{{lecture.date}}<br />Campus: {{lecture.campus|safe}}</p></div></li>
+        {% endfor %}
+        {% endautoescape %}
+       </ul>
+	</div>
+<div class="footer">
+    &copy; BITS Embryo | Contact us : embryoclub@gmail.com
+    <div class="bfoot"></div>
+</div>
+</div>
+</body>
+
+</html>

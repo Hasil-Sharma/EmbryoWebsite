@@ -1,0 +1,12 @@
+from database.models import Lecture
+def renaming(old,new):
+	i = 0
+	old = str(old)
+	new = str(new)
+	lectures = Lecture.objects.filter(discipline = old)
+	for lecture in lectures:
+		lecture.discipline = new
+		lecture.save()
+		i += 1
+	return "Renamed" + str(i) + " :" + old +" as:" +new 	
+		
