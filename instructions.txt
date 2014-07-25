@@ -1,0 +1,38 @@
+1. [FIRST INSTALLATION]
+	Set up the virtual environment in the directory you have cloned this project.
+	Command:
+		1. virtualenv --system-site-packages .      # NOTE: Here '.' indicates current directory
+		2. source bin/activate                      # Activates virtual environment [To deactivate, please use given command - "deactivate"]
+		3. ./bin/pip install -r requirements.txt    # requirements.txt is a file that has all the dependencies used for the Embryo Website.
+		4. sudo apt-get install mysql-server        # enter the MySQL root password.
+		5. Start mysql service - 
+			sudo service start mysql
+		6. Start the MySQL shell - 
+			mysql -host localhost -user <username> -p 		#<username> is generally root. Details refer: http://dev.mysql.com/doc/refman/5.5/en/connecting-disconnecting.html
+			[Enter Password]
+		7. Check if the database 'Embryo_test' already exists or not. Use foll cmd:
+			Show databases;
+			if exists,
+				Quit;
+			else
+				Create database Embryo_test;
+				Show databases;
+				Quit;
+
+[PREVIOUSLY INSTALLED THEN START HERE]
+2. Activate the virtual environment if not done.
+	source bin/activate 
+
+3. After setting create the Django tables:
+	python manage.py syncdb
+	
+4. Populate Embryo_test database:
+	python manage.py sqlall database
+
+5. Create the admin superuser:
+	python manage.py createsuperuser
+
+6. Run the server:
+	python manage.py runserver
+
+This should do it.
