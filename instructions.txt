@@ -35,4 +35,7 @@
 6. Run the server:
 	python manage.py runserver
 
+7. git help:
+	http://www.gitguys.com/topics/adding-and-removing-remote-branches/
+
 This should do it.
