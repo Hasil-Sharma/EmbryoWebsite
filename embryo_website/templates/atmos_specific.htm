@@ -1,0 +1,14 @@
+{% extends "standard.htm" %}
+
+{% block title %} {{current_atmos.topic|striptags}}{% endblock %}
+
+{% block content %}
+    <div class="current">Details</div>
+     <img src = "{{current_atmos.photo}}">
+     <p>{% for discipline in current_atmos.discipline.all %} {{ discipline }} {% endfor %}</p>
+     <p>{{current_atmos.moreifo}}</p>
+     <p>{{current_atmos.date}}</p>
+     <p>{{current_atmos.campus|safe}}</p>
+     <p>Venue: {{current_atmos.venue}}</p>
+     
+{% endblock %}
