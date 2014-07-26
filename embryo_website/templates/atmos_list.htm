@@ -25,12 +25,7 @@
 	</select>
 	</center>
 	</p>
-    <p style="position:relative; padding-left:650px;">
-    {% if page_id %}
-    <a href="/atmos/lectures/{{page_id|add:'-5'}}">Previous</a>
-    {% endif %}
-    <a href="/atmos/lectures/{{page_id|add:'5'}}">Next</a>
-    </p>
+    
 	<div class="scroll" style="overflow=auto; height-max:600px;">
    		 <table>
    		 	<colgroup>
@@ -52,5 +47,14 @@
     				</tr>
   				{% endfor %}
 		</table>
-</div>
+	</div>
+	<center>
+	<p style="position:relative;">
+   	 {% if page_id %}
+    		<a href="/atmos/lectures/{{page_id|add:'-5'}}">Previous</a>
+    	 {% endif %}
+    	<a href="/atmos/lectures/{{page_id|add:'5'}}">Next</a>
+    	</p>
+	</center>
+	
 {% endblock %}
