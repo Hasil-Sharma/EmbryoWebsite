@@ -1,7 +1,7 @@
 from embryo_website import settings
 from django.conf.urls import patterns, include, url
  # Uncomment the next two lines to enable the admin:
-from embryo_website.views import home, lectures, contribute, gallery, newsletters, atmos, about, theteam, pilaniteam, faq, register, lecturedetail, searching, discipline, event, atmosdetail, atmos_list
+from embryo_website.views import home, lectures, contribute, gallery, newsletters, about, theteam, pilaniteam, faq, register, lecturedetail, searching, discipline, event, atmosdetail, atmos_list
 from django.contrib import admin
 import os
 admin.autodiscover()
@@ -17,7 +17,6 @@ urlpatterns = patterns('',
     url(r'^contribute/$', contribute),
     url(r'^gallery/$', gallery),
     url(r'^newsletters/$', newsletters),
-    #url(r'^atmos/$', atmos),
     url(r'^about/$', about),
     url(r'^theteam/$', theteam),
     url(r'^pilaniteam/$', pilaniteam),

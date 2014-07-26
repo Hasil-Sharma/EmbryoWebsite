@@ -74,9 +74,6 @@ def newsletters(request):
 	dictionary['newsletters'] = get_all_newsletter()
 	return render_to_response('newsletter.htm',dictionary,context_instance=RequestContext(request))
 
-def atmos(request):
-	dictionary = standard()
-	return render_to_response('atmos.htm',dictionary,context_instance=RequestContext(request))
 
 def atmosdetail(request,atmos_id):
 	atmos_id = int(atmos_id)
