@@ -1,0 +1,211 @@
+1. Setting the virtual evv:
+	source venvdir/bin/activate
+
+   To deactivate the virtual environment:
+	deactivate
+
+
+2. To start a new project:
+	django-admin.py startproject <project-name>
+
+3. To run the sever:
+	python manage.py runserver
+
+4. To create the tables or update them:
+	python manage.py syncdb
+ looks at the INSTALLED_APPS setting
+ creates any necessary database tables according to the database settings in your mysite/settings.py file.
+
+5. App:
+
+An app is a Web application that does something – e.g., a Weblog system, a database of public records or a simple poll app. A project is a collection of configuration and apps for a particular Web site. A project can contain multiple apps. An app can be in multiple projects.
+
+6. Starting an App:
+	python manage.py startapp <app-name>
+
+7. DRY Principle: Don't repeat yourself.
+
+8. Creating Models:
+
+Define in models.py - basically defining the tables and the relations among the tables. this will be later used to make the database
+Create the Python API for accessing the objects of the classes created in the models.py
+
+9. Activating the models:
+
+	python manage.py sql <app-name>
+	
+The command may be different for different type of database that you use
+	Most Probably:
+	python manage.py mongodb <app-name>
+
+	python manage.py syncdb 
+	
+This command looks at the settings.py of the project and all the apps present in the INSTALLED_APPS section will be used for creating/updating a database for them.
+
+The database is created using the models.py of that app - sqlall cmd
+
+
+10. 	python manage.py shell
+	
+Opens the python shell with project settings
+
+11.  [Python]: 
+	Python2 - __unicode__(self) - method like toString()
+	Python3 - __str__(self) - method like toString()
+		__unicode_or_str__(self) - for both Python2 and Python3
+
+12. Django Admin:
+	a) Create a super user:
+		python manage.py createsuperuser
+	
+	b) Showing your app data on the admin and control it:
+		1. Go to the admin.py file of the app	
+		2. import the class(structure) of the quantity you want to control
+		3. use the admin.site.register(Poll) method to include
+	
+	c) Customizing your admin display:
+		Create a class and specify the properties there.
+		class PollAdmin(django.ModelAdmin):
+			fields:['','','']
+			fieldsets:[
+				('Name', {'key':['set of values']})
+			]
+		
+
+	d) What text will be displayed as the description of then object on the admin panel will be dependent on the __unicode__() method or the __srt__() method
+
+	e) Showing a seperate model inside this particular model -
+		Create a class inheriting admin.Stckedinline
+		<To be used in case of many one relationships
+
+		class Choiceinline(admin.StackedInline):
+			model = <model-name>
+			extra = <number-reqd>	
+
+		Include this in the inlines field of the PollAdmin class i.e the admin interface in which you want to show this info
+
+
+
+	f) Tabular Inline:
+		In order to avoid cluttering of the space in the display of the Inline objects, we can use the Tabular Inline option
+
+			class ChoiceTabular(admin.TabularInline):
+				model = Choice
+				extra = 3
+
+	g) By default django in its interface displays the str of each object i.e the __unicode__ or the__str__() return value but this can be change
+
+	Use the list_display option in the admin to change this
+
+	h) You can create new fields depending upon  other fields (Derived Fields ) by providing a method in your model class and then accessing that method through your method-name
+	
+	The name of the field is trated as the name of the method where the underscores are replaced by the spaces:
+
+
+	i) Adding the active( ticked active or inactive) through the 
+		attribute-name.boolean = True		 
+
+		attribute-name.short_description = ' ' 
+
+		list_filter = ['', '']
+		search_fields = ['' , '', '']
+		
+
+
+
+
+13. Views:
+		
+	a) Create a view method in the views.py file
+		-->It can be a app view or it can be the project view also
+		
+	b) Create a url pattern in urls.py
+		urlpattern = patterns(
+			url(regex, view_method, kwargs, name)
+
+	c) Django starts the check in matching the regular expressions from top to bottom
+	
+	d) naming your urls has the advantage of using then later for referencing them without any ambiguity
+	
+	e) The referenced URLs do not have an ending string character $ as they are supposed to be having something furthur. thus they have a / as the end of the url pattern in the project urls.py
+	
+			url(r'^abc/', include(<app-name>.urls), kwargs, name = 'webapp')
+	
+		The urls.py in the respective app shall provide furthur mapping to the respective views.	
+	f) Loading the templates from a location that is not the default directory pf the templates. There is an installed app that helps django include all the templates/ folders from all t he installed apps.  This app is b y default included in the project. You do not need to i nclude it.
+
+
+14. Rendering the templates in the traditional manner:	
+
+	make a context and pass to it a dictionary of all the variables that are defined inside the template file. 
+
+	This can be done as:
+	def index(request):
+		context = RequestContext(request, {<dictionary>, 'key1':var1, 'key2':var2})
+		template = loader.get_template(<template location>)
+		return Httpresponse(template.render(context))
+	
+15. Newer method to render the template:
+	def index(request):	
+		latest_poll_list = Poll.objects.all().order_by('-pub_date')[:5]
+		context = {<dictionary>'key1':var1, 'key2':var2}
+		return render(request, 'location of the templat', context)
+	
+16. Raising a 404 HttpPagenotFound exception
+	
+	just call Http404 by:
+		raise Http404
+	
+	import Http404 from the django.http
+	
+
+	There is also a shortcut:(import get_object_or_404 from the django.shortcuts)
+	
+		poll = get_object_or_404(<model_name>, <test condition>)
+		return render(request, <location of the template>, context)	
+
+	There is also a method called get_list_or_404. the difference is that this function calls the filter() method using the argument list rather than the get() method....
+
+17. Dynamic linking of the urls rather than the absolute linking of the urls
+	
+	In the HTML document refernce the urls using the name of the url:
+		{<a href = "{% url 'name' var_name %}">}
+	
+	Thus you specify the name of the url to which you want it to be redirected and then specify the variables that need to be passed to the url.
+
+
+18. namespacing the urls: basically done so that the different apps can identify which view needs to be called. The namespace for the url of the poll app can be made as polls and then referenced later.
+	
+	In the template you can specify:	
+	{% url 'namespace' poll_id %}
+
+
+19. POST request:
+	
+	request.POST['key']: It is a dictionary like object that lets you access the submitted data. request.POST[] always returns the values as string.
+	
+20. GET request:
+	get data request.GET['key']: 
+
+	
+21. CSRF Token (Cross Site Request Forgeries)
+	Since we're doing a POST request, we need to worry abt the CSRF token, Basically it prevents any specific target url post , and will take place only in cases of authentic cases. 	
+
+22. HttpResponseRedirect: This is generally used in case of redirecting to a specific page. especially in case of POST request. 
+	
+	reverse(): 2 arguments
+	Returns the url to which the view method specified as argument is passed.
+	
+	1st argument: view method to which the function should be redirected.
+	2nd argument: The arguments to the method to which it is to be redirected.
+	
+	/polls/3/results will be returned if reverse('polls:poll_results', args = {p.id})
+	
+23. Static files:
+	For each app make a dir called 
+		app-name/static/app-name/
+	
+	Keep all your static files in this directory (CSS files, JS files and the resources) Refer all the resources in your JS files and CSS files by relative paths
+	
+
+24. generics: To study
