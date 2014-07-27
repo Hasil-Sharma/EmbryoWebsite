@@ -23,19 +23,28 @@
 2. Activate the virtual environment if not done.
 	source bin/activate 
 
-3. After setting create the Django tables:
+3. Import the Embryo database fro the server
+	Log in to Embryo Server.
+	Export the Database: mysql -u username -p <database-name> > <filename.sql>
+	ftp to your local system
+	Import to the database created earliar mysql -u username -p <database-name> < <filename.sql>
+
+4. After setting create the Django tables:
 	python manage.py syncdb
 	
-4. Populate Embryo_test database:
+5. Populate Embryo_test database:
 	python manage.py sqlall database
 
-5. Create the admin superuser:
+6. Create the admin superuser:
 	python manage.py createsuperuser
 
-6. Run the server:
+7. Run the server:
 	python manage.py runserver
 
-7. git help:
+8. git help:
 	http://www.gitguys.com/topics/adding-and-removing-remote-branches/
 
 This should do it.
+
+9. Take care of the media folders.
+	Make sure all folders are available. 

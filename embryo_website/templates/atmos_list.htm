@@ -1,0 +1,60 @@
+{% extends "standard.htm" %}
+
+{% block title %} Atmos Lectures{% endblock %}
+
+{% block content %}
+    <div class="current">Atmos</div>
+    <!--
+    <form action = "/search_result/" method = "get">
+    	<p>Search
+    	{% for bar in search_bar %}
+    		{{bar}}
+    	{% endfor %}
+    <input type='submit' value = 'search'></p>
+    </form>
+    -->
+	<p>
+	<center>
+	Sort by Discipline
+	<select name = "">
+	{% for discipline in all_discipline %}
+		 <option value ="/discipline_id ={{discipline.id}}=">
+		 {{ discipline.stream }}
+		 </option>
+	{% endfor %}
+	</select>
+	</center>
+	</p>
+    
+	<div class="scroll" style="overflow=auto; height-max:600px;">
+   		 <table>
+   		 	<colgroup>
+				<col width="550">
+ 				
+				<col width="112">
+			</colgroup>
+    				{% for atmos_lecture in all_atmos_lectures %}
+   				 <tr>
+    						{% autoescape off %}<td><p><a href="/atmos/detail/{{atmos_lecture.id}}/">{{ atmos_lecture.topic }}</a></p>{% endautoescape %}
+     				   		<p>{{atmos_lecture.discipline.all|join:","}}
+    						{{ atmos_lecture.campus|safe }}-{{ atmos_lecture.venue }}, {{ atmos_lecture.date }}
+    						</p>
+						</td>
+						
+						{% if atmos_lecture.photo %}
+						<td><img src="{{ atmos_lecture.photo }}"></td>
+						{% endif %}
+    				</tr>
+  				{% endfor %}
+		</table>
+	</div>
+	<center>
+	<p style="position:relative;">
+   	 {% if page_id %}
+    		<a href="/atmos/lectures/{{page_id|add:'-5'}}">Previous</a>
+    	 {% endif %}
+    	<a href="/atmos/lectures/{{page_id|add:'5'}}">Next</a>
+    	</p>
+	</center>
+	
+{% endblock %}

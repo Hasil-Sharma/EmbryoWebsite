@@ -1,5 +1,5 @@
 # Create your views here.
-from database.models import Lecture,Presenter,Newsletter,LecturesDiscipline,Discipline
+from database.models import Lecture,Presenter,Newsletter,LecturesDiscipline,Discipline,Atmos
 import datetime
 def get_all_lectures(search_item = None):
 	if search_item:
@@ -29,3 +29,10 @@ def get_all_newsletter():
 
 def get_all_lectures_perd(dis):
 	return Lecture.objects.filter(discipline = dis)
+
+def get_atmos(atmos_id):
+	return Atmos.objects.get(id = atmos_id)
+
+def get_all_atmos_lectures():
+	all_lectures = Atmos.objects.all()
+	return all_lectures.order_by('-id')

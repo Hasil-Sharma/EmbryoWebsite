@@ -84,3 +84,20 @@ class SignUp(models.Model):
 	talk_discipline = models.CharField('Select the Discipline that matches the topic you have decided to deliver a talk on', max_length = 50,blank = True)
 	def __unicode__(self):
 		return "%s %s" % (self.first_name,self.last_name)
+
+class Atmos(models.Model):
+    date = models.DateTimeField(null=True)
+    discipline = models.ManyToManyField(Discipline)
+    topic = HTMLField(max_length= 50, null = True)
+    moreinfo = HTMLField(blank=True)
+    #presenter = models.ForeignKey(Presenter)
+    photo = models.ImageField(upload_to = ("./AtmosPhotos"),max_length=50, blank=True)
+    discussion = models.TextField(blank=True)
+    #feedback = models.FileField(upload_to = ("./feedback"), blank = True)
+    allowed = models.BooleanField('Display on site',default = True)
+    venue = models.CharField(max_length = 10)
+    campus = models.CharField(max_length=10)
+    class Meta:
+        db_table = u'atmos'
+    def __unicode__(self):
+       return self.topic

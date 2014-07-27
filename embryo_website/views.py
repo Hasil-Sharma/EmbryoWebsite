@@ -60,7 +60,8 @@ def contribute(request):
 
 def gallery(request):
 	dictionary = standard()
-	all_filenames = os.listdir('./images_gallery')
+	#all_filenames = os.listdir('./images_gallery')
+	all_filenames = os.path.join(os.path.dirname(__file__), './../media/images_gallery')
 	image_filenames = []
 	for filename in all_filenames:
 		if filename.endswith('png') or filename.endswith('jpg') or filename.endswith('PNG') or filename.endswith('JPG'):
@@ -72,6 +73,23 @@ def newsletters(request):
 	dictionary = standard()
 	dictionary['newsletters'] = get_all_newsletter()
 	return render_to_response('newsletter.htm',dictionary,context_instance=RequestContext(request))
+
+
+def atmosdetail(request,atmos_id):
+	atmos_id = int(atmos_id)
+	dictionary = standard()
+	dictionary['current_atmos'] = get_atmos(atmos_id)
+	
+	return render_to_response('atmos_specific.htm',dictionary,context_instance=RequestContext(request))
+
+def atmos_list(request,page_id=0):
+	page_id = int(page_id)
+	dictionary = standard()
+	dictionary['page_id'] = page_id
+	dictionary['all_atmos_lectures'] = get_all_atmos_lectures()[page_id:page_id+5]
+	dictionary['all_discipline'] = Discipline.objects.all()
+	
+	return render_to_response('atmos_list.htm',dictionary,context_instance=RequestContext(request))
 
 def about(request):
 	dictionary = standard()
