@@ -1,5 +1,5 @@
 # Create your views here.
-from database.models import Lecture,Presenter,Newsletter,LecturesDiscipline,Discipline,Atmos
+from database.models import Lecture,Presenter,Newsletter,LecturesDiscipline,Discipline,Atmos,AIC_Discipline,AIC_Company
 import datetime
 def get_all_lectures(search_item = None):
 	if search_item:
@@ -36,3 +36,13 @@ def get_atmos(atmos_id):
 def get_all_atmos_lectures():
 	all_lectures = Atmos.objects.all()
 	return all_lectures.order_by('-id')
+
+def get_companies(discipline_id):
+	discipline_companies = AIC_Company.objects.filter(discipline = discipline_id, allowed = True)
+	return discipline_companies.order_by('-id')
+
+def get_discipline(discipline_id):
+	return AIC_Discipline.objects.get(id = discipline_id)
+
+def get_specific_company(company_id):
+	return AIC_Company.objects.get(id = company_id)

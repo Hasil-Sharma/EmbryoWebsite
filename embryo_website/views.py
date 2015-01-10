@@ -1,6 +1,6 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from database.models import Lecture,Event,Discipline
+from database.models import Lecture,Event,Discipline,AIC_Discipline
 from database.views import *
 from embryo_website.forms import SearchForm,RegisterForm
 import os
@@ -74,6 +74,31 @@ def newsletters(request):
 	dictionary['newsletters'] = get_all_newsletter()
 	return render_to_response('newsletter.htm',dictionary,context_instance=RequestContext(request))
 
+
+def aic(request):
+	dictionary = standard()
+	dictionary['aic_disciplines'] = AIC_Discipline.objects.all()
+	return render_to_response('aic.htm', dictionary, context_instance=RequestContext(request))
+
+def aic_track(request, discipline_id):
+	discipline_id = int(discipline_id)
+	dictionary = standard()
+	dictionary['companies'] = get_companies(discipline_id)
+	dictionary['discipline'] = get_discipline(discipline_id)
+	dictionary['aic_disciplines'] = AIC_Discipline.objects.all()
+	return render_to_response('aic_companies.htm', dictionary, context_instance=RequestContext(request))
+
+def company_details(request, company_id):
+	company_id = int(company_id)
+	dictionary = standard()
+	dictionary['company'] = get_specific_company(company_id)
+	dictionary['submission_date'] = dictionary['company'].submission_date.date()
+	if(dictionary['company'].submission_date.date()>=datetime.datetime.now().date()):
+		dictionary['is_active'] = 1==1
+	else:
+		dictionary['is_active'] = 1==0
+	dictionary['aic_disciplines'] = AIC_Discipline.objects.all()
+	return render_to_response('company_details.htm', dictionary, context_instance=RequestContext(request))
 
 def atmosdetail(request,atmos_id):
 	atmos_id = int(atmos_id)

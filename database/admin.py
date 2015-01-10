@@ -1,5 +1,5 @@
 from django.contrib import admin
-from database.models import Presenter, Lecture, Feedback, Newsletter, Discipline, LecturesDiscipline, Event, SignUp, Atmos
+from database.models import Presenter, Lecture, Feedback, Newsletter, Discipline, LecturesDiscipline, Event, SignUp, Atmos, AIC_Company, AIC_Discipline
 class LectureAdmin(admin.ModelAdmin):
 	list_display = ('id','presenter','topic','date')
 	search_fields = ('id','topic',)
@@ -33,6 +33,13 @@ class AtmosAdmin(admin.ModelAdmin):
 	filter_horizontal = ('discipline',)
 #	fields = get_vars(Lecture)
 #	readonly_fields  = ('id',)
+
+class AIC_Company_Admin(admin.ModelAdmin):
+	list_display = ('id','company_name','submission_date')
+	search_fields = ('id','comapny_name',)
+	list_filter = ('discipline','submission_date')
+	date_hierarchy = 'submission_date'
+	filter_horizontal = ('discipline',)
 	
 admin.site.register(Presenter,PresenterAdmin)
 admin.site.register(Lecture, LectureAdmin)
@@ -43,4 +50,6 @@ admin.site.register(LecturesDiscipline)
 admin.site.register(Event,EventAdmin)
 admin.site.register(SignUp)
 admin.site.register(Atmos, AtmosAdmin)
+admin.site.register(AIC_Discipline)
+admin.site.register(AIC_Company, AIC_Company_Admin)
 

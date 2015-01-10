@@ -1,0 +1,106 @@
+{% extends "standard.htm" %}
+
+{% block title %} AIC{% endblock %}
+
+{% block content %}
+    <div class="current">AIC 2014</div>
+	<h3>{{ company.company_name }}</h3>
+		<p>
+		Following are details for {{ company.company_name }}. 
+		{% if company.logo %}
+		<img style="border: 2px solid black; margin-left: 10px; margin-right: 10px; float: right;" src="{{ company.logo }}" alt="{{ company.company_name }}" width="100" height="100" />
+		{% endif %}
+		</p>
+		<p>
+		<ol>
+		<b>Track(s)</b>:
+		<br />
+		<p>
+		{{ company.discipline.all|join:"<br />" }}
+		</p>
+		</ol>
+		</p>
+		{% if company.company_description %}		
+		<p>
+		<ol>
+		<b>Company Description:</b>
+		<br />
+		<p>
+		{{ company.company_description }}
+		</p>
+		</ol>
+		</p>
+		{% endif %}
+		{% if company.problem_statement_details %}		
+		<p>
+		<ol>
+		<b>Problem Statement Details:</b>
+		<br />
+		<p>
+		{{ company.problem_statement_details }}
+		</p>
+		</ol>
+		</p>
+		{% endif %}
+		
+		{% if company.problem_statement_file %}		
+		<p>
+		<ol>
+		<b>Problem Statement:</b>
+		<br />
+		<p>
+		{{ company.problem_statement_file }}
+		</p>
+		</ol>
+		</p>
+		{% endif %}
+	
+		
+		{% if submission_date %}		
+		<p>
+		<ol>
+		<b>Submission Deadline:</b>
+		<br />
+		<p>
+		{{ submission_date }}
+		</p>
+		</ol>
+		</p>
+		{% endif %}
+		
+		{% if is_active %}		
+		<p>
+		<ol>
+		<b>The deadline is approaching. You can upload your solution here. </b>
+		<br />
+		Upload Instructions:
+		<br />
+		<br />
+		Kindly upload a compressed file (zip/tar) of your solution. Include all yout files (code/description/any other relevant files). Also insert a pdf specifying your approach and team members. Also try to include the work distribution among team members.
+		<br />
+		<br />
+		Set the file name as: {{ company.company_name }}_TeamMember1_TeamMember2_TeamMember3.zip
+		
+		<br />
+		</ol>
+		</p>
+		{% else %}
+		<p>
+		<ol>
+		<b>The deadline for this year's Apogee Innovation Challenge for the company {{ company.company_name }} is already over. We're sorry. You can browse through other companies. There might still be time for some of them. Hurry!  </b>
+		<br />
+		</ol>
+		</p>
+		
+		{% endif %}
+
+    	<h3>Want to Browse other Tracks?</h3>
+	<p>Following are the tracks for Apogee Innovation Challenge 2015. Click on any track to browse through the companies and register as a participant.</p>
+	<ul>
+	{% for discipline in aic_disciplines %}
+    	<li><p><a href="/tracks/{{ discipline.id }}/">{{ discipline.stream }}</a></p></li>
+        {% endfor %}
+	</ul>
+	
+	
+{% endblock %}

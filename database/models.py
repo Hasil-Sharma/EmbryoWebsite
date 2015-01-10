@@ -101,3 +101,22 @@ class Atmos(models.Model):
         db_table = u'atmos'
     def __unicode__(self):
        return self.topic
+
+class AIC_Discipline(models.Model):
+	stream = models.CharField(max_length = 50)
+	def __unicode__(self):
+		return self.stream
+
+class AIC_Company(models.Model):
+    submission_date = models.DateTimeField(null=True)
+    discipline = models.ManyToManyField(AIC_Discipline)
+    company_name = models.CharField(max_length = 100)
+    company_description = HTMLField(blank=True)
+    logo = models.ImageField(upload_to = ("./AIC_CompanyPhotos"),max_length=50, blank=True)
+    problem_statement_details = models.TextField(blank=True)
+    problem_statement_file = models.FileField(upload_to = ("./Problem_Statements"), blank = True)
+    allowed = models.BooleanField('Display on site',default = True)
+    class Meta:
+        db_table = u'aic_company_details'
+    def __unicode__(self):
+       return self.company_name
