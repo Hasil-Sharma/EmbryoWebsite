@@ -1,5 +1,5 @@
 # Create your views here.
-from database.models import Lecture,Presenter,Newsletter,LecturesDiscipline,Discipline,Atmos,AIC_Discipline,AIC_Company
+from database.models import Lecture,Presenter,Newsletter,LecturesDiscipline,Discipline,Atmos,AIC_Discipline,AIC_Company,AIC_Solution
 import datetime
 def get_all_lectures(search_item = None):
 	if search_item:
@@ -46,3 +46,18 @@ def get_discipline(discipline_id):
 
 def get_specific_company(company_id):
 	return AIC_Company.objects.get(id = company_id)
+
+def get_mail_ids(teamName):
+	temp_list = []
+	try:
+		database_object = AIC_Solution.objects.get(team_name=teamName)
+		temp_list.append(str(database_object.member_one_email))
+		temp_list.append(str(database_object.member_two_email))
+		temp_list.append(str(database_object.member_three_email))
+		temp_list.append(str(database_object.member_four_email))
+		temp_list.append(str(database_object.member_five_email))
+		temp_list = [x for x in temp_list if len(x) > 0]					
+	except Exception:
+		print "exception"
+
+	return temp_list

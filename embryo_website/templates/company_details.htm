@@ -49,7 +49,7 @@
 		<b>Problem Statement:</b>
 		<br />
 		<p>
-		{{ company.problem_statement_file }}
+		<embed src="/{{ company.problem_statement_file }}" width=718px height=400px>
 		</p>
 		</ol>
 		</p>
@@ -71,17 +71,11 @@
 		{% if is_active %}		
 		<p>
 		<ol>
-		<b>The deadline is approaching. You can upload your solution here. </b>
-		<br />
-		Upload Instructions:
+		<b>The deadline is approaching.
 		<br />
 		<br />
-		Kindly upload a compressed file (zip/tar) of your solution. Include all yout files (code/description/any other relevant files). Also insert a pdf specifying your approach and team members. Also try to include the work distribution among team members.
-		<br />
-		<br />
-		Set the file name as: {{ company.company_name }}_TeamMember1_TeamMember2_TeamMember3.zip
-		
-		<br />
+		<a href = "/company_register/{{ company.id }}/">Register and Upload your solution here.</a>
+		</b>
 		</ol>
 		</p>
 		{% else %}
