@@ -1,0 +1,33 @@
+{% extends "standard.htm" %}
+
+{% block title %} AIC{% endblock %}
+
+{% block content %}
+    <div class="current">AIC 2014</div>
+	<h3>Companies Participlating for track {{ discipline }}</h3>
+		{% if companies %}
+		<p>
+		Following are the companies participating in Apogee Innovation Challenge for the track <b>{{ discipline }}</b>. Please click on the link to view the company problem statement and register for the event. 
+		</p>
+		<p>
+		<ol>
+		{% for company in companies %}
+		<b><li><a href = "/company_details/{{ company.id }}/">{{ company.company_name }}</a></li></b>
+		{% endfor %}
+		</ol>
+		</p>
+		{% else %}
+		<p>
+		We haven't finalized any company for the track <b>{{ discipline }}</b>. Stay tuned for further updates. 
+		</p>
+		{% endif %}
+    	<h3>Want to Browse other Tracks?</h3>
+	<p>Following are the tracks for Apogee Innovation Challenge 2015. Click on any track to browse through the companies and register as a participant.</p>
+	<ul>
+	{% for discipline in aic_disciplines %}
+    	<li><p><a href="/tracks/{{ discipline.id }}/">{{ discipline.stream }}</a></p></li>
+        {% endfor %}
+	</ul>
+	
+	
+{% endblock %}

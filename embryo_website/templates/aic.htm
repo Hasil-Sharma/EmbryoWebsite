@@ -1,0 +1,67 @@
+{% extends "standard.htm" %}
+
+{% block title %} AIC{% endblock %}
+
+{% block content %}
+    <div class="current">AIC 2014</div>
+	<h3>What is Apogee Innovation Challenge?</h3>
+		<p>
+		Apogee Innovation Challenge is an event conducted BITS Embryo during <a href = "http://bits-apogee.org/intro/">Apogee</a>, International Technical Festival of BITS Pilani. Its a kernel event of the fest where we are inviting companies of various disciplines to pose a design challenge pertaining to their interest. Teams of students, across the country, will get around 1-1.5 months to solve your challenge and submit the solutions to the companies of their desired preference. The companies will decide the <b>best 5 solutions</b> pertaining to their requirements and <b>those teams will get a chance to present their idea in front of the company representatives during Apogee</b>. The winners can be awarded a cash prize, a summer/winter internship at your company or any goodies that the company may seem fit to felicitate them with.</p>
+    <h3>Vision</h3>
+		<p>
+			Give the students of the country a stage to showcase their skills, talent and technical expertise. The Apogee Innovation Challenge is one of its kind event that allows companies to get innovative solutions to real life challenges faced by the company from students. 
+		</p>
+    <h3>Benefits to the Company?</h3>
+		<p>
+		APOGEE is a techfest of national acclaim. Participation of the company will give it access to a large talent pool which the company can utilize not only as a cheap way to solve challenging problems, but also to scout for promising engineers. Taking part in APOGEE Innovation Challenge will also ensure publicity of the company on a national level.
+		</p>
+    <h3>Benefits to the Participants?</h3>
+		<p>
+		Experience in dealing with a real-life design problem. Developing a professional design and an opportunity to win exciting awards for their efforts.
+		</p>
+	<h3>Event Progress</h3>
+		<p>
+		The event will be a Design Challenge focusing on each of the Technical disciplines offered at BITS Pilani.
+		
+<br />
+The companies from each category are to give real life design problems which our participants will be required to solve.
+<br />
+The students, in teams of 3-4, will be given 1-2 months to work on these problems and submit their solutions to the company.
+<br />
+The top 5 teams will be selected and will get a chance to present their design (a simulation/model/concept, as demanded by the company) at APOGEE-2014 in front of the judges from the company.
+</p>
+	<h3>How do I Participate?</h3>
+	<p>Following are the tracks for Apogee Innovation Challenge 2015. Click on any track to browse through the companies and register as a participant.</p>
+	<ul>
+	{% for discipline in aic_disciplines %}
+    	<li><p><a href="/tracks/{{ discipline.id }}/">{{ discipline.stream }}</a></p></li>
+        {% endfor %}
+	</ul>
+	<h3>Contact Us!</h3>
+	<p><b>[Companies]</b> In case you want to participate in Apogee Innovation Challenge or would like to sponser the event, Please do not hesistate the following representatives of BITS Embryo. They'll brief you about any questions you might have.
+	<br />
+	<br />
+	<b>[Participants]</b> In case you want to participate in Apogee Innovation Challenge as a student and want to know more, drop in an email to the following representatives of BITS Embryo.
+	</p>
+	<p>
+	<center>
+	<b>Rachna Jha, +91-7038050287, rachna.93@gmail.com
+	<br />Souradeep Bhattacharya, santai.agartala@gmail.com
+	</center>
+	</b></p>
+	<h3>Facing Problems!</h3>
+	<p>In case you are facing any technical difficulties, related to the website, you can drop in an email at embryoclub[at]gmail.com or contact:
+	<br />
+	<br />
+	<center>
+	<b>
+	Rohan Badlani, +91-9660582805, rohan.badlani@gmail.com
+	</b>
+	</center>
+	</p>
+	<h3>About<a href="http://www.bits-pilani.ac.in/" style="font-size:14px"> BITS Pilani</a></h3>
+    <p>Birla Institute of Technology and Science (BITS), Pilani is a Leading University in India offering degrees in Engineering, Management, Pharmacy, Sciences, Engineering Technology, Information Systems, General Studies, Finance, etc presently at Pilani, Dubai, Goa campuses and in the near future at Hyderabad campus. BITS Pilani also offers an array of work integrated learning programmes for HRD of a vast spectrum of Indian corporates.</p>
+	<h3>About <a href="http://bits-apogee.org/intro/" style="font-size:14px">APOGEE</a></h3>
+		<p>Apogee, the first ISO 9001:2008 certified technical fest in India, is a large scale event that has attracted the connoisseurs of engineering and technology over the years. It represents the zenith of science and engineering in a landscape of future visionaries and scientists.</p>
+	
+{% endblock %}

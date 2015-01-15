@@ -12,7 +12,7 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME':  'Embryo_test',                    # Or path to database file if using sqlite3.
+        'NAME':  'Embryo_Test',                    # Or path to database file if using sqlite3.
         'USER': 'root',                      # Not used with sqlite3
         'PASSWORD': 'rohan',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
@@ -154,3 +154,9 @@ LOGGING = {
         },
     }
 }
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'embryoclub@gmail.com'
+EMAIL_HOST_PASSWORD = 'mbry0pr0'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True

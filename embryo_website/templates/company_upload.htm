@@ -1,0 +1,42 @@
+{% extends "standard.htm" %}
+
+{% block title %} AIC Registration{% endblock %}
+
+{% block content %}
+
+<div class="current">Invalid!</div>
+	<h3>
+	Registration Form for {{ company.company_name }}
+	</h3>
+	<p>Dear Participant,</p>
+	<p>
+	You can upload your solution here. <b>After uploading you will recieve an email verifying that we have recieved your solution. If you do not recieve such an email, please send your solutions to embryoclub[at]gmail.com.</b>
+	</p>
+	<p>
+	Upload Instructions.
+	</p>
+	<p>
+	Upload a compressed file consisting all your solution files (including code/pdf's/analysis files). Try to include a PDF describing your solution approach and team details.
+	</p>
+	<center>
+        <form action="/company_thank_you/{{ company_id }}/" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+	    <p>Team Name*: {{ form.teamName }}&nbsp;&nbsp;&nbsp;{{ form.team_name }}</p>&nbsp;
+            <p>{{ form.non_field_errors }}</p>&nbsp;
+            <p>{{ form.docfile.label_tag }} {{ form.docfile.help_text }}</p>
+		<br />
+		
+            <p>
+                {{ form.docfile.errors }}
+                &nbsp;&nbsp;&nbsp;
+		{{ form.docfile }}
+            </p>
+		<br />
+            <p><input type="submit" value="Upload" /></p>
+        </form>
+    	</center>
+	<p>With best regards,
+	<br />BITS Embryo.</p>
+	<p>For any problems contact, drop an email at embryoclub[at]gmail.com or contact:<br />Rohan Badlani, +91-9660582805<p>
+	
+{% endblock %}

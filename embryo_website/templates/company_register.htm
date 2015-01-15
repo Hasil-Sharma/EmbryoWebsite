@@ -1,0 +1,32 @@
+{% extends "standard.htm" %}
+
+{% block title %} AIC Registration{% endblock %}
+
+{% block content %}
+
+<div class="current">AIC Register</div>
+	<h3>
+	Registration Form for {{ company.company_name }}
+	</h3>
+	<p>Dear Participant,</p>
+	{% if is_active %}
+	<p>Here is the Registration Form for participating in Apogee Innovation Challenge for {{ company.company_name }}. We request you to kindly enter some basic information about yourself. The information entered by you would be treated as confidential and would only be shared with the company.
+		<center>
+		<p>The Fields marked with an asterisk (*) are compulsary to register.</p>
+		<p>{{ form.non_field_errors }}</p>&nbsp;
+            
+		<form action="/company_register/{{ company.id }}/" method="post">{% csrf_token %}
+		{{ register_form.as_p }}
+		<input type="submit" name="submit" />
+		</center>
+		</form>
+	{% else %}
+	<p>We're Sorry! The deadline for the company {{ company.company_name }} has already crossed. Try again, next time around!
+	{% endif %}
+	
+	</p>
+	<p>With best regards,
+	<br />BITS Embryo.</p>
+	<p>For any problems contact, drop an email at embryoclub[at]gmail.com or contact:<br />Rohan Badlani, +91-9660582805<p>
+	
+{% endblock %}

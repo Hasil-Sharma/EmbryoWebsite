@@ -1,6 +1,11 @@
 from django.db import models
 from tinymce.models import HTMLField
 import os
+
+def get_upload_path(instance, filename):
+    return os.path.join('./Company_Solutions/', instance.company_name, instance.team_name.upper(), filename)
+
+
 class Discipline(models.Model):
 	stream = models.CharField(max_length = 50)
 	def __unicode__(self):
@@ -101,3 +106,45 @@ class Atmos(models.Model):
         db_table = u'atmos'
     def __unicode__(self):
        return self.topic
+
+class AIC_Discipline(models.Model):
+	stream = models.CharField(max_length = 50)
+	def __unicode__(self):
+		return self.stream
+
+class AIC_Company(models.Model):
+    submission_date = models.DateTimeField(null=True)
+    discipline = models.ManyToManyField(AIC_Discipline)
+    company_name = models.CharField(max_length = 100)
+    company_description = HTMLField(blank=True)
+    logo = models.ImageField(upload_to = ("./AIC_CompanyPhotos"),max_length=50, blank=True)
+    problem_statement_details = models.TextField(blank=True)
+    problem_statement_file = models.FileField(upload_to = ("./Problem_Statements"), blank = True)
+    allowed = models.BooleanField('Display on site',default = True)
+    class Meta:
+        db_table = u'aic_company_details'
+    def __unicode__(self):
+       return self.company_name
+
+class AIC_Solution(models.Model):
+	team_name = models.CharField('Team Name* (Create any single word teamname.)   ',max_length = 100,blank=False)
+	project_name = models.CharField('Project Name* (Preferably Problem Name.)   ',max_length = 100, blank=False)
+	member_one_name = models.CharField('Member One Name*   ',max_length = 100,blank=False)
+	member_one_email = models.EmailField('Member One Email*   ',blank=True)
+	member_two_name = models.CharField('Member Two Name   ', max_length = 100,blank=True)
+	member_two_email = models.EmailField('Member Two Email   ', blank=True)
+	member_three_name = models.CharField('Member Three Name   ', max_length = 100,blank=True)
+	member_three_email = models.EmailField('Member Three Email   ', blank=True)
+	member_four_name = models.CharField('Member Four Name   ', max_length = 100,blank=True)
+	member_four_email = models.EmailField('Member Four Email   ', blank=True)
+	member_five_name = models.CharField('Member Five Name   ', max_length = 100,blank=True)
+	member_five_email = models.EmailField('Member Five Email   ', blank=True)
+	description = models.TextField('Briefly describe your solution (at max 500 characters.)    ',blank=True)
+	company_discipline = models.CharField('Choose the track under which you are applying for the company*   ', max_length=100,blank=False)
+	def __unicode__(self):
+		return self.team_name
+
+class Document(models.Model):
+	team_name = models.CharField(max_length=100)
+	company_name = models.CharField(max_length=100)
+	docfile = models.FileField(upload_to=get_upload_path)

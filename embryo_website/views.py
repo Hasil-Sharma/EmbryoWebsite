@@ -1,8 +1,11 @@
 from django.shortcuts import render_to_response
+from django.http import HttpResponseRedirect
 from django.template import RequestContext
-from database.models import Lecture,Event,Discipline
+from django.core.mail import send_mail,EmailMessage
+from database.models import Lecture,Event,Discipline,AIC_Discipline,Document
 from database.views import *
-from embryo_website.forms import SearchForm,RegisterForm
+from embryo_website.forms import SearchForm,RegisterForm,AIC_UploadForm,DocumentForm
+from embryo_website.urlgenerator import *
 import os
 import datetime
 
@@ -74,6 +77,102 @@ def newsletters(request):
 	dictionary['newsletters'] = get_all_newsletter()
 	return render_to_response('newsletter.htm',dictionary,context_instance=RequestContext(request))
 
+
+def aic(request):
+	dictionary = standard()
+	dictionary['aic_disciplines'] = AIC_Discipline.objects.all()
+	return render_to_response('aic.htm', dictionary, context_instance=RequestContext(request))
+
+def aic_track(request, discipline_id):
+	discipline_id = int(discipline_id)
+	dictionary = standard()
+	dictionary['companies'] = get_companies(discipline_id)
+	dictionary['discipline'] = get_discipline(discipline_id)
+	dictionary['aic_disciplines'] = AIC_Discipline.objects.all()
+	return render_to_response('aic_companies.htm', dictionary, context_instance=RequestContext(request))
+
+def company_details(request, company_id):
+	company_id = int(company_id)
+	dictionary = standard()
+	dictionary['company'] = get_specific_company(company_id)
+	dictionary['submission_date'] = dictionary['company'].submission_date.date()
+	if(dictionary['company'].submission_date.date()>=datetime.datetime.now().date()):
+		dictionary['is_active'] = 1==1
+	else:
+		dictionary['is_active'] = 1==0
+	dictionary['aic_disciplines'] = AIC_Discipline.objects.all()
+	return render_to_response('company_details.htm', dictionary, context_instance=RequestContext(request))
+
+def company_register(request, company_id):
+	company_id = int(company_id)
+	dictionary = standard()
+	dictionary['company'] = get_specific_company(company_id)
+	if request.method == 'POST':
+		form = AIC_UploadForm(request.POST)
+		if form.is_valid():
+			cleaned_form = form.cleaned_data
+			form.save()
+			subject = "[BITS Embryo] Apogee Innovation Challenge Registration"
+			host= "127.0.0.1:8000"
+			member_one_email = cleaned_form['member_one_email']
+			body = "Hi Team " + str(cleaned_form['team_name']) + "!\n\nYou have successfully registered for the company " + str(dictionary['company']) + ". The following are your details: \n\n" + "Team Name: " + str(cleaned_form['team_name']) + "\nProject Name: " + str(cleaned_form['project_name']) + "\n\nSolution Upload Link: " +  str(make_upload_url(host,cleaned_form['team_name'],cleaned_form['member_one_name'],company_id)) + "\n\nPlease click on the above link to upload your solution. (Only One Member is required to submit the solution.)\n\nRegards,\nBITS Embryo.\nEmail: embryoclub@gmail.com\nContact: Rohan, +91-9660582805."
+			success = send_mail(subject,body,"embryoclub@gmail.com",[cleaned_form['member_one_email'],cleaned_form['member_two_email'],cleaned_form['member_three_email'],cleaned_form['member_four_email'],cleaned_form['member_five_email']],fail_silently = False)
+			return render_to_response('company_register_success.htm', dictionary, context_instance=RequestContext(request))
+	dictionary['register_form'] = AIC_UploadForm()
+	dictionary['submission_date'] = dictionary['company'].submission_date.date()
+	if(dictionary['company'].submission_date.date()>=datetime.datetime.now().date()):
+		dictionary['is_active'] = 1==1
+	else:
+		dictionary['is_active'] = 1==0
+	dictionary['aic_disciplines'] = AIC_Discipline.objects.all()
+	return render_to_response('company_register.htm', dictionary, context_instance=RequestContext(request))
+
+def company_upload(request, company_id):
+	company_id = int(company_id)
+	if(request.GET.get('params')):
+		paramters = request.GET.get('params')
+		print base64.b64decode(paramters)
+		return HttpResponseRedirect('http://' + request.get_host() +'/company_thank_you/' + str(company_id) + '/' + base64.b64decode(paramters))
+	
+def company_thank_you(request, company_id):
+	company_id = int(company_id)
+	company = get_specific_company(company_id)
+	dictionary = standard()
+	dictionary['company'] = company
+	if(request.GET.get('name')):
+		team_name_render = request.GET.get('name')
+		dictionary['team_name_render'] = team_name_render
+	
+	if request.method == 'POST':
+	       	form = DocumentForm(request.POST, request.FILES)
+		if form.is_valid():
+        		newdoc = Document(docfile = request.FILES['docfile'])
+			newdoc.team_name = request.POST['team_name']
+			newdoc.company_name = company.company_name
+           		newdoc.save()
+			#sending an email
+			subject = "[BITS Embryo] Apogee Innovation Challenge Registration"
+			body = "Hi Team " + str(request.POST['team_name']) + "!\n\nYou have successfully submitted the solution for the company " + str(dictionary['company']) + ". The following are your details: \n\n" + "Team Name: " + str(request.POST['team_name']) + ". The solution submitted is attached.\n\nRegards,\nBITS Embryo.\nEmail: embryoclub@gmail.com\nContact: Rohan, +91-9660582805."          
+			print request.POST['team_name']
+			to = get_mail_ids(request.POST['team_name'])  
+			email = EmailMessage(subject,body,'embryoclub@gmail.com',to)
+			filepath = os.path.join('/home/rohan/Desktop/rohan/Git/embryo/EmbryoWebsite/embryo_website/templates/Company_Solutions/', company.company_name, str(request.POST['team_name']).upper(), str(request.FILES['docfile']))
+			print str(filepath)
+			email.attach_file(filepath)
+			email.send(fail_silently=False)
+			# Redirect to the document list after POST
+			
+	            	return render_to_response('company_thank_you.htm', dictionary, context_instance=RequestContext(request))
+	else:
+		dictionary_temp = dict()
+		dictionary_temp['team_name'] = team_name_render
+	      	form = DocumentForm(dictionary_temp, auto_id=False) # A empty, unbound form
+		print team_name_render
+		print str(form)
+	dictionary['form'] = form
+	
+	dictionary['company_id'] = company_id
+	return render_to_response('company_upload.htm', dictionary, context_instance=RequestContext(request))
 
 def atmosdetail(request,atmos_id):
 	atmos_id = int(atmos_id)
